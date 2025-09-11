@@ -1,0 +1,115 @@
+import javax.naming.BinaryRefAddr;
+import java.util.Scanner;
+class Student{
+    String rollno;
+    String name;
+    String course;
+    double marks;
+    String grade;
+    Scanner sc = new Scanner(System.in);
+    private String RollNo;
+
+    public void inputStudent(){
+        System.out.println("Enter Roll Number:");
+        String RollNo = sc.nextLine();
+        System.out.println("Enter name:");
+        name = sc.nextLine();
+        System.out.println("Enter course:");
+        course = sc.nextLine();
+        System.out.println("Enter marks:");
+        marks = sc.nextDouble();
+        sc.nextLine();
+        calculateGrade();
+    }
+
+    private void calculateGrade() {
+        if (marks>=90)grade = "A+";
+        else if (marks>=80)grade = "A";
+        else if (marks>=70)grade = "B";
+        else if(marks>=60)grade = "C";
+        else if (marks>=50)grade = "D";
+        else grade = "F";
+    }
+    public void displayStudent(){
+        System.out.println("Roll no:" + RollNo);
+        System.out.println("Name:" + name);
+        System.out.println("course:" + course);
+        System.out.println("Marks:" + marks);
+        System.out.println("Grade:" + grade);
+    }
+}
+class StudentManagementSystem{
+    public Object initializeSystem;
+    Student[] students;
+    int studentCount;
+    Scanner sc = new Scanner(System.in);
+    private Student[] Student;
+
+    public void intializeSystem(int size){
+        Object student;
+        student = new Student[size];
+        studentCount = 0;
+    }
+    public void addStudent(){
+        if (studentCount>=students.length){
+            System.out.println("Cannot add more student.Array is full!");
+            return;
+        }
+        Student s = new Student();
+        s.inputStudent();
+        studentCount++;
+        System.out.println("Student added sucessfully!\n");
+    }
+    public void displayAllStudent(){
+        if (studentCount==0){
+            System.out.println("No student record available!\n");
+            return;
+        }
+        System.out.println("=======Student Record=======");
+        for(int i = 0; i<studentCount;i++){
+            Student[i].displayStudent();
+        }
+    }
+
+    public void initializeSystem(int size) {
+    }
+}
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        StudentManagementSystem sms = new StudentManagementSystem();
+        System.out.println("Enter the maximum number student:");
+        int size = sc.nextInt();
+        sc.nextLine();
+        sms.initializeSystem(size);
+        int choice;
+        do{
+            System.out.println("\n=====Student Record Management System=====");
+            System.out.println("1.Add Student");
+            System.out.println("3.Exit");
+            System.out.println("Enter your choice:");
+            choice = sc.nextInt();
+            sc.nextLine();
+            switch (choice){
+                case 1:
+                    sms.addStudent();
+                    break;
+                case 2:
+                    sms.displayAllStudent();
+                    break;
+                case 3:
+                    System.out.println("Exiting the program. Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid choice! please try again");
+            }
+        }while(choice!=3);
+        sc.close();
+
+
+
+
+    }
+}
+
+
